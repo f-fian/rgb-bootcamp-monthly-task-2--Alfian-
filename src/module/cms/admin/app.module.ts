@@ -7,13 +7,7 @@ import * as redisStore from 'cache-manager-redis-store';
 
 
 @Module({
-  imports: [ConfigModule,CacheModule.register({
-    isGlobal:true,
-    store: redisStore,
-    // Store-specific configuration:
-    host: 'localhost',
-    port: 6379,
-  })],
+  imports: [ConfigModule],
   controllers: [AppController],
   providers: [AppService],
 })

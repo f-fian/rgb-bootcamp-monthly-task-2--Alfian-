@@ -1,7 +1,9 @@
 import { Column, Model, Table } from 'sequelize-typescript';
+import { HasMany } from 'sequelize-typescript';
+import { ClinicCovid19 } from './clinicCovid19Model';
 
 
-@Table({freezeTableName:true})
+@Table({tableName:"clinic",freezeTableName:true})
 export class Clinic extends Model {
   @Column
   nama_clinic: string;
@@ -11,5 +13,8 @@ export class Clinic extends Model {
 
   @Column
   telepon: number;
+
+  @HasMany(()=>ClinicCovid19)
+  tabel_clinicCovid19: ClinicCovid19[];
   
 }
