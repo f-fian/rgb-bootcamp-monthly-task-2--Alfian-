@@ -17,13 +17,12 @@ export class ClinicCovid19Controller {
     return this.ClinicCovid19Service.cmsClinicCovid19Post(ClinicCovid19Request,clinicId)
   }
 
-  @Get(":clinicCovidId")
+  @Get(":covidId")
   clinicCovid19Get(
     @Param("clinicId",ParseIntPipe) clinicId:number,
-    @Param("clinicCovidId",ParseIntPipe) clinicCovidId:number){
-    return this.ClinicCovid19Service.cmsClinicCovid19Get(clinicId,clinicCovidId)
+    @Param("covidId",ParseIntPipe) covidId:number){
+    return this.ClinicCovid19Service.cmsClinicCovid19Get(clinicId,covidId)
   }
-
   @Get()
   clinicCovid19GetList(@Param("clinicId",ParseIntPipe) clinicId:number){
     return this.ClinicCovid19Service.cmsClinicCovid19GetList(clinicId)

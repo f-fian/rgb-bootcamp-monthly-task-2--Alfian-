@@ -27,17 +27,17 @@ export class ClinicCovid19Service {
     })
   }
 
-  async cmsClinicCovid19Get(clinicId,clinicCovidId){
-    const cacheData = await this.cacheManager.get(`clinicCovid19-${clinicCovidId}`)
+  async cmsClinicCovid19Get(clinicId,covidId){
+    const cacheData = await this.cacheManager.get(`clinic-${clinicId}&covidId-${covidId}`)
     if (!cacheData){
       console.log("CACHE MISS")
       const clinicCovid19 = await this.ClinicCovid19Model.findOne({
         where:{
-          id:clinicCovidId,
-          clinic_id:clinicId
+          clinic_id:clinicId,
+          covid19_id:covidId 
         }
       })
-      await this.cacheManager.set(`clinicCovid19-${clinicCovidId}`,clinicCovid19)
+      await this.cacheManager.set(`clinic-${clinicId}&covidId-${covidId}`,clinicCovid19)
       return clinicCovid19
     }
     console.log("CACHE KE HITT")
