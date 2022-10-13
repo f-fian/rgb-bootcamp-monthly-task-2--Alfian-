@@ -1,36 +1,75 @@
 import { Injectable,Inject,CACHE_MANAGER,BadRequestException} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { Clinic } from 'src/model/clinicModel';
 import { JadwalTest } from 'src/model/jadwalTestModel';
 import { Cache } from 'cache-manager';
+import { ClinicCovid19 } from 'src/model/clinicCovid19Model';
 
 @Injectable()
 export class JadwalTestService {
 
   constructor(
-    @InjectModel(Clinic) private JadwalTestModel:typeof JadwalTest,
+    @InjectModel(JadwalTest) private JadwalTestModel:typeof JadwalTest,
+    @InjectModel(ClinicCovid19) private ClinicCovid19Model:typeof ClinicCovid19,
     @Inject(CACHE_MANAGER) private cacheManager:Cache
   ){}
 
-  async cmcJadwalTestPost(JadwalTestRequest):Promise<any>{
-    const {clinic_covid_id,tanggal,jam,kuota} = JadwalTestRequest
-    const jadwalTestClinic = await this.findJadwalTest(clinic_covid_id,tanggal,jam)
-    if (jadwalTestClinic){
-      throw new BadRequestException("Jadwal Test tersebut sudah ada")
-    }
-    return await this.JadwalTestModel.create({
-      clinic_covid_id,
+  async cmcJadwalTestPost(clinic_id,covid19_id,JadwalTestRequest):Promise<any>{
+    const {tanggal,jam,kuota} = JadwalTestRequest
+    console.log(tanggal);
+    console.log(jam);
+    console.log(kuota);
+
+    const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
+    const jadwalTestClinic = await this.JadwalTestModel.create({
+      clinic_covid_id:clinicCovid19.id,
       tanggal,
       jam,
       kuota
     })
+    return jadwalTestClinic
   }
-  async findJadwalTest(clinic_covid_id,tanggal,jam) {
-    return await this.JadwalTestModel.findOne({
+
+  async cmcJadwalTestGetList(clinic_id,covid19_id,JadwalTestRequest):Promise<any>{
+    const {tanggal,jam,kuota} = JadwalTestRequest
+    console.log(tanggal);
+    console.log(jam);
+    console.log(kuota);
+
+    const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
+    const jadwalTestClinic = await this.JadwalTestModel.findAll({
       where:{
-        clinic_covid_id,
-        tanggal,
-        jam
+        clinic_covid_id:clinicCovid19.id}
+    })
+    return jadwalTestClinic
+  }
+
+  // async cmcJadwalTestGet(clinic_id,covid19_id,tanggal,JadwalTestRequest):Promise<any>{
+  //   const {tanggal,jam,kuota} = JadwalTestRequest
+  //   console.log(tanggal);
+  //   console.log(jam);
+  //   console.log(kuota);
+
+  //   const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
+  //   const jadwalTestClinic = await this.JadwalTestModel.findAll({
+  //     where:{
+  //       clinic_covid_id:clinicCovid19.id}
+  //   })
+  //   return jadwalTestClinic
+  // }
+
+
+
+
+
+
+
+
+
+  async findClinicCovidId(clinic_id,covid19_id) {
+    return await this.ClinicCovid19Model.findOne({
+      where:{
+        clinic_id,
+        covid19_id
       }
     })
   }

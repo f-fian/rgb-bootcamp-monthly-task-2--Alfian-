@@ -3,15 +3,31 @@ import { ClinicRequest } from 'src/request/clinic.request';
 import { JadwalTestService } from './jadwalTest.service';
 import { JadwalTestRequest } from 'src/request/jadwalTest.request';
 
-@Controller("clinic/:clinicId/covid19/jadwal")
+@Controller("clinic/:clinicId/covid19/:covidId/jadwal")
 export class JadwalTestController {
   constructor(private readonly JadwalTestService: JadwalTestService) {}
 
 
   @Post()
-  clinicPost(@Body() JadwalTestRequest:JadwalTestRequest){
-    return this.JadwalTestService.cmcJadwalTestPost(JadwalTestRequest)
+  jadwalTestClinicPost(@Body() JadwalTestRequest:JadwalTestRequest,
+  @Param("clinicId",ParseIntPipe) clinicId:number,
+  @Param("covidId",ParseIntPipe) covidId:number){
+    return this.JadwalTestService.cmcJadwalTestPost(clinicId,covidId,JadwalTestRequest)
   }
+
+  @Get()
+  jadwalTestClinicGetList(@Body() JadwalTestRequest:JadwalTestRequest,
+  @Param("clinicId",ParseIntPipe) clinicId:number,
+  @Param("covidId",ParseIntPipe) covidId:number){
+    return this.JadwalTestService.cmcJadwalTestGetList(clinicId,covidId,JadwalTestRequest)
+  }
+
+  // @Get(":tanggal")
+  // jadwalTestClinicGet(@Body() JadwalTestRequest:JadwalTestRequest,
+  // @Param("clinicId",ParseIntPipe) clinicId:number,
+  // @Param("covidId",ParseIntPipe) covidId:number){
+  //   return this.JadwalTestService.cmcJadwalTestGet(clinicId,covidId,tanggal,JadwalTestRequest,)
+  // }
 
   // @Get(":id")
   // clinicGet(@Param("id",ParseIntPipe) id:number){
