@@ -29,18 +29,33 @@ export class ClinicCovid19Controller {
     return this.ClinicCovid19Service.cmsClinicCovid19GetList(clinicId)
   }
 
-  @Put(":id")
-  covid19Update(
-    @Body() ClinicCovid19Request:ClinicCovid19Request,
-    @Param("id",ParseIntPipe) id:number){
-    return this.ClinicCovid19Service.cmsClinicCovid19Update(ClinicCovid19Request,id)
-  }
+  // @Put()
+  // covid19UpdateList(
+  //   @Body() ClinicCovid19Request:ClinicCovid19Request,
+  //   @Param("clinicId",ParseIntPipe) clinicId:number){
+  //   return this.ClinicCovid19Service.cmsClinicCovid19UpdateList(ClinicCovid19Request,clinicId)
+  // }
+  // @Put(":id")
+  // covid19Update(
+  //   @Body() ClinicCovid19Request:ClinicCovid19Request,
+  //   @Param("clinicId",ParseIntPipe) clinicId:number,
+  //   @Param("id",ParseIntPipe) id:number){
+  //   return this.ClinicCovid19Service.cmsClinicCovid19Update(ClinicCovid19Request,clinicId,id)
+  // }
 
-  @Delete(":id")
-  @HttpCode(204)
-  covid19Delete(
-    @Param("id",ParseIntPipe) id:number){
-    this.ClinicCovid19Service.cmsClinicCovid19Delete(id)
-  }
+  // @Delete()
+  // @HttpCode(204)
+  // covid19DeleteList(
+  //   @Param("clinicId",ParseIntPipe) clinicId:number){
+  //   this.ClinicCovid19Service.cmsClinicCovid19Delete(clinicId)
+  // }
+
+
+  // @Delete(":id")
+  // @HttpCode(204)
+  // covid19Delete(
+  //   @Param("clinicId",ParseIntPipe) clinicId:number){
+  //   this.ClinicCovid19Service.cmsClinicCovid19Delete(clinicId)
+  // }
 
 }

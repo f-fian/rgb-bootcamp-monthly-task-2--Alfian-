@@ -2,6 +2,7 @@ import { Controller,Post,Get,Body, Param, ParseIntPipe,Put,Delete,HttpCode } fro
 import { ClinicRequest } from 'src/request/clinic.request';
 import { Covid19Service } from './covid19.service';
 import { Covid19Request } from 'src/request/covid19.request';
+import { ValidationPipe } from '@nestjs/common';
 
 
 @Controller("covid19")
@@ -10,7 +11,7 @@ export class Covid19Controller {
 
 
   @Post()
-  covid19Post(@Body() Covid19Request:Covid19Request){
+  covid19Post(@Body(new ValidationPipe()) Covid19Request:Covid19Request){
     return this.Covid19Service.cmsCovid19Post(Covid19Request)
   }
 

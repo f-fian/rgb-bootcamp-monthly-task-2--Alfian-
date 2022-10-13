@@ -5,7 +5,6 @@ import { ClinicCovid19 } from 'src/model/clinicCovid19Model';
 
 @Injectable()
 export class ClinicCovid19Service {
-
   constructor(
     @InjectModel(ClinicCovid19) private ClinicCovid19Model:typeof ClinicCovid19,
     @Inject(CACHE_MANAGER) private cacheManager:Cache
@@ -59,27 +58,42 @@ export class ClinicCovid19Service {
     return cacheData
   }
 
-  async cmsClinicCovid19Update(ClinicCovid19Request,id){
-    const {nama_test,deskripsi,harga} = ClinicCovid19Request
-    const updatedCovid19 = await this.ClinicCovid19Model.update({
-      nama_test,
-      deskripsi,
-      harga
-    },{where:{id}}
-    )
-    if (updatedCovid19[0]==0){
-      throw new BadRequestException("Clinic yang di update tidak ada")
-    }
-    return await this.ClinicCovid19Model.findOne({where:{id}})
-  }
+  // async cmsClinicCovid19UpdateList(ClinicCovid19Request,clinicId){
+  //   const {nama_test,deskripsi,harga} = ClinicCovid19Request
+  //   const updatedCovid19 = await this.ClinicCovid19Model.update({
+  //     nama_test,
+  //     deskripsi,
+  //     harga
+  //   },{where:{id}}
+  //   )
+  //   if (updatedCovid19[0]==0){
+  //     throw new BadRequestException("Clinic yang di update tidak ada")
+  //   }
+  //   return await this.ClinicCovid19Model.findOne({where:{id}})
+  // }
 
-  async cmsClinicCovid19Delete(id){
-    await this.ClinicCovid19Model.destroy({
-      where:{
-        id
-      }
-    })
-  }
+  // async cmsClinicCovid19Update(ClinicCovid19Request,clinicId,id){
+  //   const {nama_test,deskripsi,harga} = ClinicCovid19Request
+  //   const updatedCovid19 = await this.ClinicCovid19Model.update({
+  //     nama_test,
+  //     deskripsi,
+  //     harga
+  //   },{where:{id}}
+  //   )
+  //   if (updatedCovid19[0]==0){
+  //     throw new BadRequestException("Clinic yang di update tidak ada")
+  //   }
+  //   return await this.ClinicCovid19Model.findOne({where:{id}})
+  // }
+
+  
+  // async cmsClinicCovid19Delete(id){
+  //   await this.ClinicCovid19Model.destroy({
+  //     where:{
+  //       id
+  //     }
+  //   })
+  // }
 
   async findClinicCovid19(clinic_id,covid19_id){
     return await this.ClinicCovid19Model.findOne({
