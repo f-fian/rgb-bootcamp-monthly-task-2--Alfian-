@@ -15,26 +15,18 @@ export class JadwalTestService {
 
   async cmcJadwalTestPost(clinic_id,covid19_id,JadwalTestRequest):Promise<any>{
     const {tanggal,jam,kuota} = JadwalTestRequest
-    console.log(tanggal);
-    console.log(jam);
-    console.log(kuota);
-
+   
+   
     const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
     const jadwalTestClinic = await this.JadwalTestModel.create({
       clinic_covid_id:clinicCovid19.id,
-      tanggal,
+      tanggal:tanggal,
       jam,
       kuota
     })
     return jadwalTestClinic
   }
-
-  async cmcJadwalTestGetList(clinic_id,covid19_id,JadwalTestRequest):Promise<any>{
-    const {tanggal,jam,kuota} = JadwalTestRequest
-    console.log(tanggal);
-    console.log(jam);
-    console.log(kuota);
-
+  async cmcJadwalTestGetList(clinic_id,covid19_id):Promise<any>{
     const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
     const jadwalTestClinic = await this.JadwalTestModel.findAll({
       where:{
@@ -42,20 +34,20 @@ export class JadwalTestService {
     })
     return jadwalTestClinic
   }
+  async cmcJadwalTestGetDay(clinic_id,covid19_id,day):Promise<any>{
+    const tanggal = (`${day} 07:00:00`);
+    console.log(tanggal);
+    const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
+    const jadwalTestClinic = await this.JadwalTestModel.findAll({
+      where:{
+        clinic_covid_id:clinicCovid19.id,
+        tanggal}
+    })
+    return jadwalTestClinic
+  }
 
-  // async cmcJadwalTestGet(clinic_id,covid19_id,tanggal,JadwalTestRequest):Promise<any>{
-  //   const {tanggal,jam,kuota} = JadwalTestRequest
-  //   console.log(tanggal);
-  //   console.log(jam);
-  //   console.log(kuota);
 
-  //   const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
-  //   const jadwalTestClinic = await this.JadwalTestModel.findAll({
-  //     where:{
-  //       clinic_covid_id:clinicCovid19.id}
-  //   })
-  //   return jadwalTestClinic
-  // }
+ 
 
 
 

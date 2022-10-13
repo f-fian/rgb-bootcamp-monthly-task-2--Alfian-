@@ -16,10 +16,18 @@ export class JadwalTestController {
   }
 
   @Get()
-  jadwalTestClinicGetList(@Body() JadwalTestRequest:JadwalTestRequest,
+  jadwalTestClinicGetList(
   @Param("clinicId",ParseIntPipe) clinicId:number,
   @Param("covidId",ParseIntPipe) covidId:number){
-    return this.JadwalTestService.cmcJadwalTestGetList(clinicId,covidId,JadwalTestRequest)
+    return this.JadwalTestService.cmcJadwalTestGetList(clinicId,covidId)
+  }
+
+  @Get(":day")
+  jadwalTestClinicGetDay(
+  @Param("clinicId",ParseIntPipe) clinicId:number,
+  @Param("covidId",ParseIntPipe) covidId:number,
+  @Param("day") day:string){
+    return this.JadwalTestService.cmcJadwalTestGetDay(clinicId,covidId,day)
   }
 
   // @Get(":tanggal")
