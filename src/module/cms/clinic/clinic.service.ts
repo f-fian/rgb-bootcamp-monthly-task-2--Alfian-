@@ -2,6 +2,7 @@ import { Injectable,Inject,CACHE_MANAGER,BadRequestException} from '@nestjs/comm
 import { InjectModel } from '@nestjs/sequelize';
 import { Clinic } from 'src/model/clinicModel';
 import { Cache } from 'cache-manager';
+import { raw } from 'express';
 
 @Injectable()
 export class ClinicService {
@@ -32,7 +33,8 @@ export class ClinicService {
       const clinic = await this.ClinicModel.findOne({
         where:{
           id
-        }
+        },
+        raw:true
       })
       await this.cacheManager.set(`clinic-${id}`,clinic)
       return clinic
@@ -46,7 +48,9 @@ export class ClinicService {
     const cacheData = await this.cacheManager.get(`clinicList`)
     if (!cacheData){
       console.log("CACHE MISS")
-      const clinic = await this.ClinicModel.findAll()
+      const clinic = await this.ClinicModel.findAll({
+        raw:true
+      })
       await this.cacheManager.set(`clinicList`,clinic)
       return clinic
     }

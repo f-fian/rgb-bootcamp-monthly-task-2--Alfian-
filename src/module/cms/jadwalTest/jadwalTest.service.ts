@@ -34,9 +34,7 @@ export class JadwalTestService {
     })
     return jadwalTestClinic
   }
-  async cmcJadwalTestGetDay(clinic_id,covid19_id,day):Promise<any>{
-    const tanggal = (`${day} 07:00:00`);
-    console.log(tanggal);
+  async cmcJadwalTestGetDay(clinic_id,covid19_id,tanggal):Promise<any>{
     const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
     const jadwalTestClinic = await this.JadwalTestModel.findAll({
       where:{

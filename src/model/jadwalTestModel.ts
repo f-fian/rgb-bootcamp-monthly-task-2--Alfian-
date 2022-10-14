@@ -1,3 +1,4 @@
+import { DATEONLY } from 'sequelize';
 import { Column, Model,Table,ForeignKey,BelongsTo } from 'sequelize-typescript';
 import { ClinicCovid19 } from './clinicCovid19Model';
 
@@ -8,7 +9,9 @@ export class JadwalTest extends Model {
     @Column
     clinic_covid_id: number
 
-    @Column
+    @Column({
+        type:DATEONLY
+    })
     tanggal: Date;
 
     @Column
