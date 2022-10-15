@@ -15,8 +15,6 @@ export class JadwalTestService {
 
   async cmcJadwalTestPost(clinic_id,covid19_id,JadwalTestRequest):Promise<any>{
     const {tanggal,jam,kuota} = JadwalTestRequest
-   
-   
     const clinicCovid19 = await this.findClinicCovidId(clinic_id,covid19_id)
     const jadwalTestClinic = await this.JadwalTestModel.create({
       clinic_covid_id:clinicCovid19.id,

@@ -2,11 +2,15 @@ import { Injectable,Inject,CACHE_MANAGER,BadRequestException} from '@nestjs/comm
 import { InjectModel } from '@nestjs/sequelize';
 import { Cache } from 'cache-manager';
 import { ClinicCovid19 } from 'src/model/clinicCovid19Model';
+import { Clinic } from 'src/model/clinicModel';
+import { Covid19 } from 'src/model/covid19Model';
 
 @Injectable()
 export class ClinicCovid19Service {
   constructor(
     @InjectModel(ClinicCovid19) private ClinicCovid19Model:typeof ClinicCovid19,
+    @InjectModel(Clinic) private ClinicModel:typeof Clinic,
+    @InjectModel(Covid19) private Covid19Model:typeof Covid19,
     @Inject(CACHE_MANAGER) private cacheManager:Cache
   ){}
 
@@ -50,7 +54,12 @@ export class ClinicCovid19Service {
     const cacheData = await this.cacheManager.get(`clinicCovid19List-${clinicId}`)
     if (!cacheData){
       console.log("CACHE MISS")
-      const clinicCovid19 = await this.ClinicCovid19Model.findAll({where:{clinic_id:clinicId}})
+      const clinicCovid19 = await this.ClinicCovid19Model.findAll(
+      {
+        where:{clinic_id:clinicId},
+        include:[{model:Clinic},{model:Covid19}]
+       
+      })
       await this.cacheManager.set(`clinicCovid19List-${clinicId}`,clinicCovid19)
       return clinicCovid19
     }
