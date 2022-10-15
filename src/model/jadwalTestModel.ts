@@ -8,18 +8,12 @@ export class JadwalTest extends Model {
     @ForeignKey(() =>ClinicCovid19)
     @Column
     clinic_covid_id: number
-
-    @Column({
-        type:DATEONLY
-    })
+    @Column({type:DATEONLY})
     tanggal: Date;
-
     @Column
     jam: string;
-
     @Column
     kuota: number;
-
     @BelongsTo(()=>ClinicCovid19)
     tabel_clinicCovid19: ClinicCovid19  
 }
