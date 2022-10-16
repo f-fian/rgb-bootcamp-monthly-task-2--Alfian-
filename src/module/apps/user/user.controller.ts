@@ -1,20 +1,23 @@
-import { Controller,Post,Get,Body } from '@nestjs/common';
+import { Controller,Post,Get,Body, Redirect } from '@nestjs/common';
 import { UserService } from './user.service';
-import { AdminRequest } from 'src/request/admin.request';
+import { UserRequest } from 'src/request/user.request';
+import { UserLoginRequest } from 'src/request/userLogin.request';
 
 @Controller("user")
 export class UserController {
   constructor(private readonly UserService: UserService) {}
 
-
-  @Post("Signup")
-  adminSignup(@Body() AdminRequest:AdminRequest){
-    return this.UserService.userSignup(AdminRequest)
+  @Redirect()
+  @Post("signup")
+  adminSignup(@Body() UserRequest:UserRequest){
+    console.log("masuk gak");
+    return this.UserService.userSignup(UserRequest)
   }
 
-  @Post("Signin")
-  adminSignin(@Body() AdminRequest:AdminRequest){
-    return this.UserService.userSignin(AdminRequest)
+  @Redirect()
+  @Post("signin")
+  adminSignin(@Body() UserLoginRequest:UserLoginRequest){
+    return this.UserService.userSignin(UserLoginRequest)
   }
   
 }

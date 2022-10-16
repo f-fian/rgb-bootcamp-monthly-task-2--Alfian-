@@ -5,7 +5,7 @@ import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript';
 export class User extends Model {
   @PrimaryKey
   @Column
-  ktp: number;
+  nik: string;
   @Column
   firstName: string;
   @Column
@@ -13,7 +13,7 @@ export class User extends Model {
   @Column
   password: string;
   @Column
-  phone: number;
+  phone: string;
   @Column
   email: string;
   @Column({type:DATEONLY})

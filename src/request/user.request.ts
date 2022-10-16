@@ -1,9 +1,9 @@
 export class UserRequest {
-    ktp:string
+    nik:string
     firstName:string
     lastName:string
     password:string
-    phone:number
+    phone:string
     email:string
     birthDate:string
     address:string
