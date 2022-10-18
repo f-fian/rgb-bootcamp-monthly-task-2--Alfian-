@@ -31,4 +31,10 @@ export class UserController {
     const hasil = await this.UserService.checkcookie(jwt)
     return hasil
   }
+
+  @Post("booking")
+  async booking(
+    @Body() UserRequest:UserRequest){
+
+  }
 }

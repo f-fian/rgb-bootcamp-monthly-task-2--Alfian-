@@ -17,6 +17,4 @@ export class JadwalTest extends Model {
     kuota: number;
     @BelongsTo(()=>ClinicCovid19)
     tabel_clinicCovid19: ClinicCovid19
-    @HasMany(()=>Booking)
-    tabel: Booking[];
 }

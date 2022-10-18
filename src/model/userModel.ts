@@ -23,5 +23,5 @@ export class User extends Model {
   address: string;
 
   @HasMany(()=>Booking)
-  tabelBooking: Booking[];
+  tabel_booking: Booking[];
 }

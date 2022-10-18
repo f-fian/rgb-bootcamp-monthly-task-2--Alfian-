@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { PassportStrategy } from '@nestjs/passport';
+import { AuthGuard, PassportStrategy } from '@nestjs/passport';
 import {Strategy} from "passport-jwt"
 import { cookieExtractor } from 'src/utils/utils';
 @Injectable()
@@ -19,3 +19,5 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     return {username:payload.username,UserId:payload.sub}
   }
 }
+
+

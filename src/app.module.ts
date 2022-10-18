@@ -10,12 +10,13 @@ import { UserModule } from './module/apps/user/user.module';
 import * as redisStore from 'cache-manager-redis-store';
 import { JadwalTestModule } from './module/cms/jadwalTest/jadwalTest.module';
 import { ExampleModule } from './module/example/example.module';
+import { JadwalModule } from './module/cms/jadwal/jadwal.module';
 
 
 
 
 @Module({
-  imports: [ConfigModule,AdminModule,ClinicModule,Covid19Module,ClinicCovid19Module,JadwalTestModule,UserModule,ExampleModule,
+  imports: [ConfigModule,AdminModule,ClinicModule,Covid19Module,ClinicCovid19Module,JadwalTestModule,UserModule,ExampleModule,JadwalModule,
     CacheModule.register({
     isGlobal:true,
     store: redisStore,

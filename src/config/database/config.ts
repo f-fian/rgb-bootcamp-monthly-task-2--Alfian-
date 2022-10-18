@@ -7,6 +7,7 @@ import { ClinicCovid19 } from "src/model/clinicCovid19Model";
 import { JadwalTest } from "src/model/jadwalTestModel";
 import { User } from "src/model/userModel";
 import { Booking } from "src/model/bookingModel";
+import { Jadwal } from "src/model/jadwalModel";
 
 const env = dotenv.parse(fs.readFileSync(".env"))
 export default {
@@ -16,7 +17,7 @@ export default {
     username: env.DB_USERNAME,
     password: env.DB_PASSWORD,
     database: env.DB_NAME,
-    models: [Admin,Clinic,Covid19,ClinicCovid19,JadwalTest,User,Booking],
+    models: [Admin,Clinic,Covid19,ClinicCovid19,JadwalTest,User,Booking,Jadwal],
     autoLoadModels: env.DB_AUTO_LOAD_MODEL,
     synchronize:env.DB_SYNCHRONIZE
 }
