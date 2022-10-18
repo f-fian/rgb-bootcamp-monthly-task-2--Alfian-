@@ -1,6 +1,7 @@
 import { DATEONLY } from 'sequelize';
-import { Column, Model,Table,ForeignKey,BelongsTo } from 'sequelize-typescript';
+import { Column, Model,Table,ForeignKey,BelongsTo,HasMany } from 'sequelize-typescript';
 import { ClinicCovid19 } from './clinicCovid19Model';
+import { Booking } from './bookingModel';
 
 
 @Table({tableName:"jadwaltest",freezeTableName:true})
@@ -15,5 +16,7 @@ export class JadwalTest extends Model {
     @Column
     kuota: number;
     @BelongsTo(()=>ClinicCovid19)
-    tabel_clinicCovid19: ClinicCovid19  
+    tabel_clinicCovid19: ClinicCovid19
+    @HasMany(()=>Booking)
+    tabel: Booking[];
 }

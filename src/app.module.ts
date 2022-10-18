@@ -13,6 +13,7 @@ import { ExampleModule } from './module/example/example.module';
 
 
 
+
 @Module({
   imports: [ConfigModule,AdminModule,ClinicModule,Covid19Module,ClinicCovid19Module,JadwalTestModule,UserModule,ExampleModule,
     CacheModule.register({

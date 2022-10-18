@@ -1,5 +1,6 @@
 import { DATEONLY } from 'sequelize';
-import { Column, Model, PrimaryKey, Table } from 'sequelize-typescript';
+import { Column, Model, PrimaryKey, Table,HasMany } from 'sequelize-typescript';
+import { Booking } from './bookingModel';
 
 @Table({tableName:"user",freezeTableName:true,underscored:true})
 export class User extends Model {
@@ -20,4 +21,7 @@ export class User extends Model {
   birthDate: string;
   @Column
   address: string;
+
+  @HasMany(()=>Booking)
+  tabelBooking: Booking[];
 }

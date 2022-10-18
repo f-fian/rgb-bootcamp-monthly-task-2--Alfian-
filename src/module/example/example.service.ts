@@ -12,6 +12,4 @@ export class ExampleService {
     // @Inject(CACHE_MANAGER) private cacheManager:Cache
   ){}
 
-
-
 }
