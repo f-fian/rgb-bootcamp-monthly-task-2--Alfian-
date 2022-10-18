@@ -34,7 +34,10 @@ export class UserController {
 
   @Post("booking")
   async booking(
-    @Body() UserRequest:UserRequest){
-
+  @Body() UserRequest:UserRequest){
+    console.log("object");
+    const data = JSON.parse(Object.keys(UserRequest)[0])
+    console.log(data)
+    return this.UserService.bookingPost(data)
   }
 }

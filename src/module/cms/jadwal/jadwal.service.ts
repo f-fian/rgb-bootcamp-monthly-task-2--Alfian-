@@ -26,9 +26,7 @@ export class JadwalService {
     if (!cacheData){
       console.log("CACHE MISS")
       const jadwal = await this.JadwalModel.findOne({
-        where:{
-          id
-        }
+        where:{id}
       })
       await this.cacheManager.set(`jadwal-${id}`,jadwal)
       return jadwal
@@ -37,7 +35,6 @@ export class JadwalService {
     return cacheData
     
   }
-
 
 
   async findJadwal(tanggal,jam){

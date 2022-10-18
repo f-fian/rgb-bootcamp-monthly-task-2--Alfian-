@@ -21,6 +21,8 @@ export class Booking extends Model {
   @ForeignKey(() =>User)
   @Column
   nik: string
+  @Column
+  harga: number
   
   @BelongsTo(()=>Jadwal)
   tabel_jadwal: Jadwal
