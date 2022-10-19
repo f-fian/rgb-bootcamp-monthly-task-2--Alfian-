@@ -8,6 +8,7 @@ import { Jadwal } from 'src/model/jadwalModel';
 import { Clinic } from 'src/model/clinicModel';
 import { Covid19 } from 'src/model/covid19Model';
 import * as bcrypt from "bcrypt"
+import { where } from 'sequelize';
 
 @Injectable()
 export class UserService {
@@ -54,6 +55,30 @@ export class UserService {
     if (user && await bcrypt.compare(password,user.password)){
       return [{url:"http://127.0.0.1:5500/clinic.html"},jwtLogin,jwtBooking]
     }else throw new UnauthorizedException("cek kembali email atau password anda")
+  }
+
+  async getUser(nikParam){
+    const userByNik = await this.findUserByNik(nikParam)
+    if (!userByNik){
+      throw new BadRequestException("User yang di cari tidak ada")
+    }
+    return userByNik
+  }
+
+  async updateUser(UserRequest,nikParam){
+    const {nik,fullname,password,phone,email,birthDate,address} = UserRequest
+    const userByNik = await this.findUserByNik(nikParam)
+    if (!userByNik){
+      throw new BadRequestException("User yang di update tidak ada")
+    }
+    const hashedPassword = await bcrypt.hash(password,await bcrypt.genSalt(10))
+    const updatedUser = await this.UserModel.update(
+      {nik,fullname,
+      password:hashedPassword
+      ,phone,email,birthDate,address},
+      {where:{nik:nikParam}}
+    )
+    return "User telah terupdate"
 
   }
 

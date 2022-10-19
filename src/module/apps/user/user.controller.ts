@@ -1,4 +1,4 @@
-import { Controller,Post,Get,Body, Redirect, Req,Res, Param, ParseIntPipe } from '@nestjs/common';
+import { Controller,Post,Get,Body, Redirect, Req,Res, Param, ParseIntPipe,Put, HttpCode } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserRequest } from 'src/request/user.request';
 import { UserLoginRequest } from 'src/request/userLogin.request';
@@ -27,6 +27,20 @@ export class UserController {
       res.cookie("booking",urlAndJwt[2])
     }
     return (urlAndJwt[0])
+  }
+
+  @Get(":nik")
+  async getUser(
+    @Param("nik",ParseIntPipe) nik:number){
+    return await this.UserService.getUser(nik)
+  }
+
+  @HttpCode(201)
+  @Put(":nik")
+  async updateUser(
+    @Body() UserLoginRequest:UserLoginRequest,
+    @Param("nik",ParseIntPipe) nik:number){
+    return await this.UserService.updateUser(UserLoginRequest,nik)
   }
 
   @Post("cookie")

@@ -19,7 +19,6 @@ export class User extends Model {
   birthDate: string;
   @Column
   address: string;
-
   @HasMany(()=>Booking)
   tabel_booking: Booking[];
 }
