@@ -20,9 +20,12 @@ export class UserController {
   async Signin(
     @Body() UserLoginRequest:UserLoginRequest,
     @Res() res:Response){
+    console.log("signin")
     const urlAndJwt = await this.UserService.userSignin(UserLoginRequest)
     res.cookie("jwt",urlAndJwt[1])
-    res.cookie("booking",urlAndJwt[2])
+    if (urlAndJwt[2] != null){
+      res.cookie("booking",urlAndJwt[2])
+    }
     return (urlAndJwt[0])
   }
 

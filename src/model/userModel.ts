@@ -8,9 +8,7 @@ export class User extends Model {
   @Column
   nik: string;
   @Column
-  firstName: string;
-  @Column
-  lastName: string;
+  fullname: string;
   @Column
   password: string;
   @Column

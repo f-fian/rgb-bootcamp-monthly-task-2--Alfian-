@@ -19,7 +19,7 @@ export class UserService {
   private readonly jwtService: JwtService,){}
 
   async userSignup(UserRequest): Promise<any> {
-    const {nik,firstName,lastName,password,phone,email,birthDate,address} = UserRequest
+    const {nik,fullname,password,phone,email,birthDate,address} = UserRequest
     console.log(nik);
     const userByEmail = await this.findUserByEmail(email)
     if (userByEmail){throw new BadRequestException("Email sudah digunakan. Mohon gunakan email lainnya")}
@@ -28,8 +28,7 @@ export class UserService {
     const hashedPassword = await bcrypt.hash(password,await bcrypt.genSalt(10))
     const newUser = await this.UserModel.create({
       nik,
-      firstName,
-      lastName,
+      fullname,
       password:hashedPassword,
       phone,
       email,
@@ -43,7 +42,7 @@ export class UserService {
     const user = await this.findUserByEmail(email)
     const userPayload = {
       nik:user.nik,
-      name:`${user.firstName} ${user.firstName}`,
+      name:user.fullname,
       phone:user.phone,
       address:user.address
     }
@@ -80,8 +79,6 @@ export class UserService {
     return await this.BookingModel.findOne({
       where:{id:bookingId},
       include:[Clinic,Covid19,User,Jadwal]
-    
-    
     })
   }
 
@@ -94,12 +91,22 @@ export class UserService {
   }
   async setBookingDataCookie(nik){
     const bookingDataCookie = await this.getBookingDataCookie(nik)
-    const bookingPayload = {bookingId:bookingDataCookie.id}
-    return this.jwtService.sign(bookingPayload)
+    let bookingPayload;
+    if (!bookingDataCookie){
+      return null
+    } else {
+      bookingPayload = {bookingId:bookingDataCookie.id}
+      return this.jwtService.sign(bookingPayload)
+    }
+    
+    
   }
 
   async getBookingDataCookie(nik){
-    return this.BookingModel.findOne({where:{nik}})
+    console.log("getBookingDataCookie");
+    const data = await this.BookingModel.findOne({where:{nik}})
+    console.log(data);
+    return data
   }
   // find clinic test. Tujuannya buat dapat harga testnya
   async findClinicTest(clinic_id,covid19_id){
