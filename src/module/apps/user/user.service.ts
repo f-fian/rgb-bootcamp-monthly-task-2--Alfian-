@@ -67,6 +67,7 @@ export class UserService {
 
   async updateUser(UserRequest,nikParam){
     const {nik,fullname,password,phone,email,birthDate,address} = UserRequest
+    console.log(password);
     const userByNik = await this.findUserByNik(nikParam)
     if (!userByNik){
       throw new BadRequestException("User yang di update tidak ada")

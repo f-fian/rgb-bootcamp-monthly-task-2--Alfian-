@@ -32,6 +32,7 @@ export class UserController {
   @Get(":nik")
   async getUser(
     @Param("nik",ParseIntPipe) nik:number){
+    console.log("get User");
     return await this.UserService.getUser(nik)
   }
 
@@ -39,7 +40,10 @@ export class UserController {
   @Put(":nik")
   async updateUser(
     @Body() UserLoginRequest:UserLoginRequest,
-    @Param("nik",ParseIntPipe) nik:number){
+    @Param("nik") nik:string){
+    console.log("update user");
+    console.log(UserLoginRequest);
+    console.log(nik);
     return await this.UserService.updateUser(UserLoginRequest,nik)
   }
 
