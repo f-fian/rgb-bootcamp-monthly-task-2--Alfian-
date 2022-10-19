@@ -1,7 +1,7 @@
 import { Controller,Post,Get,Body, Param, ParseIntPipe,Put,Delete,HttpCode } from '@nestjs/common';
-import { ClinicRequest } from 'src/request/clinic.request';
 import { JadwalTestService } from './jadwalTest.service';
 import { JadwalTestRequest } from 'src/request/jadwalTest.request';
+import { ValidationPipe } from '@nestjs/common/pipes';
 
 @Controller("clinic/:clinicId/covid19/:covidId/jadwal")
 export class JadwalTestController {
@@ -9,7 +9,7 @@ export class JadwalTestController {
 
 
   @Post()
-  jadwalTestClinicPost(@Body() JadwalTestRequest:JadwalTestRequest,
+  jadwalTestClinicPost(@Body(ValidationPipe) JadwalTestRequest:JadwalTestRequest,
   @Param("clinicId",ParseIntPipe) clinicId:number,
   @Param("covidId",ParseIntPipe) covidId:number){
     return this.JadwalTestService.cmcJadwalTestPost(clinicId,covidId,JadwalTestRequest)

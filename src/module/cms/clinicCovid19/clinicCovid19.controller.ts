@@ -1,6 +1,7 @@
 import { Controller,Post,Get,Body, Param, ParseIntPipe,Put,Delete,HttpCode } from '@nestjs/common';
 import { ClinicCovid19Request } from 'src/request/clinicCovid19.request';
 import { ClinicCovid19Service } from './clinicCovid19.service';
+import { ValidationPipe } from '@nestjs/common/pipes';
 
 
 
@@ -8,10 +9,9 @@ import { ClinicCovid19Service } from './clinicCovid19.service';
 export class ClinicCovid19Controller {
   constructor(private readonly ClinicCovid19Service: ClinicCovid19Service) {}
 
-
   @Post()
   clinicCovid19Post(
-  @Body() ClinicCovid19Request:ClinicCovid19Request,
+  @Body(ValidationPipe) ClinicCovid19Request:ClinicCovid19Request,
   @Param("clinicId",ParseIntPipe) clinicId:number
   ){
     return this.ClinicCovid19Service.cmsClinicCovid19Post(ClinicCovid19Request,clinicId)

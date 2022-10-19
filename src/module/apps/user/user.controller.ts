@@ -3,6 +3,7 @@ import { UserService } from './user.service';
 import { UserRequest } from 'src/request/user.request';
 import { UserLoginRequest } from 'src/request/userLogin.request';
 import { Request,Response } from 'express';
+import { ValidationPipe } from '@nestjs/common/pipes';
 
 @Controller("user")
 export class UserController {
@@ -10,7 +11,7 @@ export class UserController {
 
   @Redirect()
   @Post("signup")
-  Signup(@Body() UserRequest:UserRequest){
+  Signup(@Body(ValidationPipe) UserRequest:UserRequest){
     console.log("masuk gak");
     return this.UserService.userSignup(UserRequest)
   }
@@ -18,7 +19,7 @@ export class UserController {
   @Redirect()
   @Post("signin")
   async Signin(
-    @Body() UserLoginRequest:UserLoginRequest,
+    @Body(ValidationPipe) UserLoginRequest:UserLoginRequest,
     @Res() res:Response){
     console.log("signin")
     const urlAndJwt = await this.UserService.userSignin(UserLoginRequest)

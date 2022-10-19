@@ -1,6 +1,7 @@
 import { Controller,Post,Get,Body, Param, ParseIntPipe,Put,Delete,HttpCode } from '@nestjs/common';
 import { ClinicRequest } from 'src/request/clinic.request';
 import { ClinicService } from './clinic.service';
+import { ValidationPipe } from '@nestjs/common/pipes';
 
 @Controller("clinic")
 export class ClinicController {
@@ -8,7 +9,7 @@ export class ClinicController {
 
 
   @Post()
-  clinicPost(@Body() ClinicRequest:ClinicRequest){
+  clinicPost(@Body(ValidationPipe) ClinicRequest:ClinicRequest){
     return this.ClinicService.cmcCLinicPost(ClinicRequest)
   }
 
@@ -24,7 +25,7 @@ export class ClinicController {
 
   @Put(":id")
   cLinicUpdate(
-    @Body() ClinicRequest:ClinicRequest,
+    @Body(ValidationPipe) ClinicRequest:ClinicRequest,
     @Param("id",ParseIntPipe) id:number){
     return this.ClinicService.cmsCLinicUpdate(ClinicRequest,id)
   }

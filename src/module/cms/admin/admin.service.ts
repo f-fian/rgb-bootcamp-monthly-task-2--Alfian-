@@ -27,7 +27,6 @@ export class AdminService {
     })
     return newAdmin
   }
-
   async cmsAdminSignin(AdminRequest): Promise<any> {
     const {email,password} = AdminRequest
     const admin = await this.findAdminByEmail(email)
@@ -35,22 +34,10 @@ export class AdminService {
       return admin
     } else throw new UnauthorizedException("Cek kembali email atau password anda")
   }
-
-
   async findAdminByEmail(email){
     return await this.AdminModel.findOne({
-      where:{
-        email
-      }
+      where:{email}
     })
   }
-    
-
-
-
-
-
-
-
-
+  
 }

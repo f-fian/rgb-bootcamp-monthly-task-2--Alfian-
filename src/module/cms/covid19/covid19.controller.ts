@@ -11,7 +11,7 @@ export class Covid19Controller {
 
 
   @Post()
-  covid19Post(@Body(new ValidationPipe()) Covid19Request:Covid19Request){
+  covid19Post(@Body(ValidationPipe) Covid19Request:Covid19Request){
     return this.Covid19Service.cmsCovid19Post(Covid19Request)
   }
 
@@ -27,7 +27,7 @@ export class Covid19Controller {
 
   @Put(":id")
   covid19Update(
-    @Body() Covid19Request:Covid19Request,
+    @Body(ValidationPipe) Covid19Request:Covid19Request,
     @Param("id",ParseIntPipe) id:number){
     return this.Covid19Service.cmsCovid19Update(Covid19Request,id)
   }
